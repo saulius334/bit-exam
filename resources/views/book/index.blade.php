@@ -3,6 +3,10 @@
 <div class="container --content">
     <div class="row justify-content-center">
         <div class="col-9">
+            <form action="{{route('b_index')}}" method="get" class="">
+                <input type="text" name="search">
+                <button>Search</button>
+            </form>
             <div class="card">
                 <div class="card-header">
                     <h2>All books</h2>

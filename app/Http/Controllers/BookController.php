@@ -12,13 +12,18 @@ use Intervention\Image\Facades\Image;
 class BookController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->search) {
+            $books = Book::where('name', 'like', '%' . $request->search . '%')->paginate(10)->withQueryString();
+        } else {
+            $books = Book::orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
+        }
         return view('book.index', [
-            'books' => Book::orderBy('updated_at', 'desc')->paginate(15)
+            'books' => $books,
+            'search' => $request->search ?? null
         ]);
     }
-
 
     public function create()
     {
