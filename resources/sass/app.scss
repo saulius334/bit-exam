@@ -6,3 +6,116 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+.book-show {
+    .line {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        margin: 0 0 10px 0;
+        h5 {
+            margin: 0 0 0 5px;
+        }
+    }
+    p {
+        font-family: 'Courier New', Courier, monospace;
+        color: gray;
+    }
+}
+.book-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    .content {
+        display: flex;
+        align-items: center;
+        h2 {
+            color: skyblue;
+            margin: 0 5px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            span {
+                font-size: 12px;
+                color: gray;
+                font-style: italic;
+                margin-right: 10px;
+            }
+        }
+        h4 {
+            color: orangered;
+            margin: 0 5px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            margin: 0 0 0 15px;
+            span {
+                font-size: 12px;
+                color: gray;
+                font-style: italic;
+                margin-right: 10px;
+            }
+        }
+        h5 {
+            color: olivedrab;
+            margin: 0 5px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            margin: 0 0 0 15px;
+            span {
+                font-size: 12px;
+                color: gray;
+                font-style: italic;
+                margin-right: 10px;
+            }
+            a {
+                text-decoration: none;
+                color: olivedrab;
+                transition: all 0.3s;
+                &:hover {
+                    color: cadetblue
+                }
+            }
+        }
+    }
+    .buttons {
+        display: flex;
+        align-items: center;
+        button,
+        form,
+        a {
+            margin: 5px 10px;
+            display: block;
+        }
+        form {
+            display: flex;
+            align-items: center;
+            margin: 0;
+        }
+    }
+}
+.welcomeText {
+    display: flex;
+    justify-content: center;
+}
+.welcomeLinks {
+    display: flex;
+    gap: 20px;
+    a {
+        text-decoration: none;
+        color: black;
+        font-size: 16px;
+        font-weight: bold;
+        background-color: white;
+        border: 1px solid black;
+        border-radius: 2px;
+        padding: 15px;
+        transition: 0.5s all;
+    }
+    a:hover {
+        color: crimson;
+        background-color: #0057B7;
+    }
+}
