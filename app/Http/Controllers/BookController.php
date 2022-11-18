@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\BookCategory;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
 class BookController extends Controller
@@ -37,7 +38,7 @@ class BookController extends Controller
             [
                 'name' => 'required|min:3|max:30',
                 'description' => 'required',
-                'ISBN' => 'required|unique:books,ISBN',
+                'isbn' => 'required|unique:books,isbn',
                 'pages' => 'required',
                 'category_id' => 'required',
                 'photo' => 'required|mimes:jpg|max:3000'
@@ -45,8 +46,8 @@ class BookController extends Controller
             [
                 'name.required' => 'Please add book name.',
                 'description.required' => 'Please add book description.',
-                'ISBN.required' => 'Please enter valid ISBN number',
-                'ISBN.unique' => 'This ISBN number is already register.',
+                'isbn.required' => 'Please enter valid ISBN number',
+                'isbn.unique' => 'This ISBN number is already register.',
                 'category.required' => 'Please select a category',
                 'pages.required' => 'Please specify how many pages the book has.',
                 'photo.max' => 'file exceeds 3MB',
@@ -63,7 +64,7 @@ class BookController extends Controller
         Book::create([
             'name' => $request->name,
             'description' => $request->description,
-            'ISBN' => $request->ISBN,
+            'isbn' => $request->isbn,
             'category_id' => $request->category_id,
             'photo' => $imagePath,
             'pages' => $request->pages,
@@ -95,8 +96,8 @@ class BookController extends Controller
             [
                 'name' => 'required|min:3|max:30',
                 'description' => 'required',
-                'ISBN' => 'required',
-                Rule::unique('book', 'ISBN')->ignore($book->ISBN),
+                'isbn' => 'required',
+                Rule::unique('book', 'isbn')->ignore($book->isbn),
                 'pages' => 'required',
                 'category_id' => 'required',
                 'photo' => 'required|mimes:jpg|max:3000'
@@ -104,8 +105,8 @@ class BookController extends Controller
             [
                 'name.required' => 'Please add book name.',
                 'description.required' => 'Please add book description.',
-                'ISBN.required' => 'Please enter valid ISBN number',
-                'ISBN.unique' => 'This ISBN number is already register.',
+                'isbn.required' => 'Please enter valid ISBN number',
+                'isbn.unique' => 'This ISBN number is already register.',
                 'category.required' => 'Please select a category',
                 'pages.required' => 'Please specify how many pages the book has.',
                 'photo.max' => 'file exceeds 3MB',
@@ -122,7 +123,7 @@ class BookController extends Controller
         $book->update([
             'name' => $request->name,
             'description' => $request->description,
-            'ISBN' => $request->ISBN,
+            'isbn' => $request->isbn,
             'category_id' => $request->category_id,
             'photo' => $imagePath,
             'pages' => $request->pages,
@@ -137,9 +138,24 @@ class BookController extends Controller
     }
     public function reserve(Book $book)
     {
-        $book->update([
-            'reserved' => true
-        ]);
-        return redirect()->route('b_index')->with('message', 'Successfully reserved!');
+        if ($book->reserved == true) {
+            return redirect()->back()->with('message', 'Book is already reserved!');
+        } else {
+            $book->update([
+                'reserved' => true
+            ]);
+            return redirect()->route('b_index')->with('message', 'Successfully reserved!');
+        }
+    }
+    public function favorite(Book $book)
+    {
+        $favoritedByList = json_decode($book->favorited_by ?? json_encode([]));
+        if (in_array(Auth::user()->id, $favoritedByList)) {
+            return redirect()->back()->with('message', 'You already added this book to your favorites');
+        }
+        $favoritedByList[] = Auth::user()->id;
+        $book->favorited_by = json_encode($favoritedByList);
+        $book->save();
+        return redirect()->route('b_index')->with('message', 'Successfully added to favorites!');
     }
 }

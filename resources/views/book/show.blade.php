@@ -5,18 +5,21 @@
         <div class="col-9">
             <div class="card">
                 <div class="card-header">
-                    <h2>{{$camp->name}}</h2>
+                    <h2>{{$book->name}}</h2>
                 </div>
                 <div class="card-body">
-                    <div class="camp-show">
+                    <div class="book-show">
                         <div class="line"><small>Name:</small>
                             <h5>{{ $book->name }}</h5>
                         </div>
-                        <div class="line"><small>Number of Rooms:</small>
+                        <div class="line"><small>Description:</small>
                             <h5>{{ $book->description }}</h5>
                         </div>
                         <div class="line"><small>ISBN:</small>
-                            <h5>{{ $book->ISBN }}</h5>
+                            <h5>{{ $book->isbn }}</h5>
+                        </div>
+                        <div class="line"><small>Number of pages:</small>
+                            <h5>{{ $book->pages }}</h5>
                         </div>
                         <div class="img-small-ch mt-3">
                             <div class="img">
@@ -24,7 +27,14 @@
                             </div>
                         </div>
                         <div class="buttons">
-                            <a href="{{route('b_reserve', $book)}}" class="btn btn-info">Reserve</a>
+                            <form action="{{route('b_reserve', $book)}}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-info mb-3">Reserve</button>
+                            </form>
+                            <form action="{{route('b_favorite', $book)}}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-info">Add to favorites</button>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -14,7 +14,7 @@
                             <div class="book-list">
                                 <div class="content">
                                     <h2><span>Book name: </span>{{$book->name}}</h2>
-                                    <h4><span>Category: </span>{{ $book->getCategory() }}</h4>
+                                    <h4><span>Category: </span>{{ $book->getCategory->name }}</h4>
                                 </div>
                                 <div class="buttons">
                                     <a href="{{route('b_show', $book)}}" class="btn btn-info">Show</a>

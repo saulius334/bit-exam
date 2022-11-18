@@ -22,6 +22,7 @@ Route::prefix('book')->name('b_')->group(function () {
     Route::get('/edit/{book}', [bookCon::class, 'edit'])->name('edit')->middleware('auth');
     Route::put('/edit/{book}', [bookCon::class, 'update'])->name('update')->middleware('auth');
     Route::post('/reserve/{book}', [bookCon::class, 'reserve'])->name('reserve')->middleware('auth');
+    Route::post('/favorite/{book}', [bookCon::class, 'favorite'])->name('favorite')->middleware('auth');
 });
 
 Route::prefix('category')->name('c_')->group(function () {

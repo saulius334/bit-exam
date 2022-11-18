@@ -17,12 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->unsignedBigInteger('ISBN');
+            $table->unsignedBigInteger('isbn');
             $table->string('photo');
             $table->boolean('reserved')->default(false);
             $table->unsignedBigInteger('pages');
             $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('book_categories');
+            $table->foreign('category_id')->references('id')->on('book_categories')->onDelete('cascade');
+            $table->text('favorited_by')->nullable();
             $table->timestamps();
         });
     }

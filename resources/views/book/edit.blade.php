@@ -25,7 +25,7 @@
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text">ISBN</span>
-                            <input type="text" name="ISBN" class="form-control" value="{{old('ISBN', $book->ISBN)}}">
+                            <input type="text" name="isbn" class="form-control" value="{{old('isbn', $book->isbn)}}">
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text">Photo</span>
