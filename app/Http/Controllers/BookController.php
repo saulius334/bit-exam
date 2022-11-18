@@ -56,7 +56,8 @@ class BookController extends Controller
         );
         if ($request->photo) {
             $imagePath = request('photo')->store('uploads', 'public');
-            $image = Image::make("../public/storage/{$imagePath}")->fit(600, 600);
+            dd($imagePath);
+            $image = Image::make("storage/{$imagePath}")->fit(600, 600);
             $image->save();
         } else {
             $imagePath = '';
@@ -115,7 +116,7 @@ class BookController extends Controller
         );
         if($request->hasFile('photo')) {
             $imagePath = request('photo')->store('uploads', 'public');
-            $image = Image::make("../public/storage/{$imagePath}")->fit(600,600);
+            $image = Image::make("storage/{$imagePath}")->fit(600,600);
             $image->save();
         } else {
             $imagePath = $book->photo;
