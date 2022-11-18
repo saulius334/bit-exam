@@ -56,7 +56,6 @@ class BookController extends Controller
         );
         if ($request->photo) {
             $imagePath = request('photo')->store('uploads', 'public');
-            dd($imagePath);
             $image = Image::make("storage/{$imagePath}")->fit(600, 600);
             $image->save();
         } else {
