@@ -38,8 +38,8 @@ class BookController extends Controller
             [
                 'name' => 'required|min:3|max:30',
                 'description' => 'required',
-                'isbn' => 'required|unique:books,isbn',
-                'pages' => 'required',
+                'isbn' => 'required|numeric|unique:books,isbn',
+                'pages' => 'required|numeric',
                 'category_id' => 'required',
                 'photo' => 'required|mimes:jpg|max:3000'
             ],
@@ -96,9 +96,9 @@ class BookController extends Controller
             [
                 'name' => 'required|min:3|max:30',
                 'description' => 'required',
-                'isbn' => 'required',
+                'isbn' => 'required|numeric',
                 Rule::unique('book', 'isbn')->ignore($book->isbn),
-                'pages' => 'required',
+                'pages' => 'required|numeric',
                 'category_id' => 'required',
                 'photo' => 'required|mimes:jpg|max:3000'
             ],
